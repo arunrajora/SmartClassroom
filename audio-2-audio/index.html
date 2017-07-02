@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="animate.css">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+
+	<div class="start">
+		<div class="logo">
+			<img src="logo.png" class="im animated fadeInUp de1">
+			<div class="animated fadeInUp de2">BHASHA</div>
+		</div>
+
+		<div class="buts">
+			<div class="but bu animated fadeInUp de3">Login</div>
+			<div class="but2 bu animated fadeInUp de4">Sign Up</div>
+		</div>
+	</div>
+	<div class="loginpage">
+		<div class="mc">
+			<div class="main">
+				<div class="level">
+					Login
+					<div class="close">
+						<i class="fa fa-times" aria-hidden="true"></i>
+					</div>
+				</div>
+
+				<div class="mainsite">
+					<div class="form">
+						<div class="ma">
+							Full Name<br>
+							<input type="text" class="fm">
+						</div>
+
+						<div class="ma">
+							Email Address<br>
+							<input type="text" class="fm">
+						</div>
+
+						<div class="ma">
+							Password<br>
+							<input type="text" class="fm">
+						</div>
+
+						<div class="ma c">
+							Submit
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="website">
+		<div class="topbar">
+			<div class="search">
+				<input type="" name="" class="srch" placeholder="Search">
+				<div class="sea">
+					<div class="arr">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="feat">
+			<div class="move1">
+				<div class="heading">Featured</div>
+				<div class="align">
+					<a href="vids"><div class="featu f5"></div></a>
+					<a href="vids"><div class="featu f6"></div></a>
+					<a href="vids"><div class="featu f7"></div></a>
+					<a href="vids"><div class="featu f8"></div></a>
+				</div>
+			</div>
+
+			<div class="move2">
+				<div class="heading">Partner Sites</div>
+				<div class="align">
+					<a href="vids"><div class="featu f1"></div></a>
+					<a href="vids"><div class="featu f2"></div></a>
+					<a href="vids"><div class="featu f3"></div></a>
+					<a href="vids"><div class="featu f4"></div></a>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<script type="text/javascript">
+		$(".bu").click(function () {
+			$(".loginpage").css({"top":"0"})
+		})
+
+		$(".close").click(function () {
+			$(".loginpage").css({"top":"100%"})
+		})
+
+		$(".c").click(function () {
+			$(".website").css({"top":"0%"})
+
+		})
+
+		$('.move1').on('mousewheel', function(updown){
+			if(updown.originalEvent.wheelDelta/120 > 0) {
+				/*$(".website").css({"top":"100%"})*/
+			}else{
+				$(".feat").css({"top":"-90%"})
+
+			}
+		})
+
+		$('.move2').on('mousewheel', function(updown){
+			if(updown.originalEvent.wheelDelta/120 > 0) {
+				$(".feat").css({"top":"10%"})
+
+			}else{
+
+			}
+		})
+	</script>
+
+</body>
+</html>

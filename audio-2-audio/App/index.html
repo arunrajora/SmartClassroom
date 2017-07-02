@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript"   src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+	<div id="player">
+	</div>
+
+
+  <div class="topbar">
+    <div class="search">
+      <input type="" name="" placeholder="Search">
+      <div class="sea">
+        <div class="arr">
+          <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	<div class="abc">
+
+		<div class="posi">
+
+      <div onclick="playClick()" class="clickable">
+
+      </div>
+      <!-- <div class = "inner"></div> -->
+
+      <div class= "bar">
+        <div onclick="playClick()" class="play pl">
+         <i class="fa fa-play" aria-hidden="true"></i>
+       </div>
+
+       <div onclick="playClick()" class="play paw">
+         <i class="fa fa-pause" aria-hidden="true"></i>
+       </div>
+
+       <div onclick="" class="play">
+         <i class="fa fa-volume-up" aria-hidden="true"></i>
+       </div>
+
+       <div onclick="" class="play slid">
+         <i class="fa fa-sliders" aria-hidden="true"></i>
+       </div>
+
+       <div onclick="" class="play cog">
+         <i class="fa fa-cogs" aria-hidden="true"></i>
+       </div>
+
+       <div class="dropdown">
+         <div class="eng lan">ENGLISH</div>
+         <div class="hin lan selected">HINDI</div>
+       </div>
+       <div onclick="" class="play tick">
+        <i class="fa fa-check" aria-hidden="true"></i>
+</div>
+       <div class="dropdown2">
+         <div class="eng2 lan">ENGLISH</div>
+         <div class="hin2 lan">HINDI</div>
+       </div>
+     </div>
+
+   </div>
+ </div>
+
+ <script>
+
+  
+
+  function UrlExists(url)
+  {
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status!=404;
+  }
+
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      var playing =0;
+      var foo;
+      var hindi =1;
+
+      $(document).ready(function()  {
+        console.log(-1);
+        $('.eng').click(function()  {
+          console.log(0);
+          if(hindi==1)  {
+            hindi=0;
+            $('.eng').addClass("selected");
+                        $('.hin').removeClass("selected");
+            foo.volume=0;
+            player.unMute();
+          }  
+        });
+
+        $('.hin').click(function()  {
+                    console.log(1);
+
+          if(hindi==0)  {
+            hindi=1;
+            foo.volume=1;
+            $('.hin').addClass("selected");
+            $('.eng').removeClass("selected");
+            player.mute();
+          }
+        });
+      });
+
+
+      function onYouTubeIframeAPIReady() {
+      	var url_string = window.location.href;
+      	var url = new URL(url_string);
+      	var vidId = url.searchParams.get("id");
+      	console.log(vidId);
+
+        $(document).ready(function()  {
+        
+
+
+
+
+
+          if(!UrlExists("http://127.0.0.1:5000/static/"+vidId+".mp3"))  {
+                        $.post("http://127.0.0.1:5000/audio",
+                        {
+                          id: vidId
+                        },
+                        function(data, status){
+                          console.log("Data: " + data + "\nStatus: " + status);
+                          if(status=="success") {
+                            if(!UrlExists("http://127.0.0.1:5000/static/"+vidId+".mp3"))  {
+                              console.log("file not created");
+                            }
+                            else  {
+                              console.log("success");
+                              foo=new Audio("http://127.0.0.1:5000/static/"+vidId+".mp3");
+                                      // foo.play();
+                                      console.log("Audio Ready");
+                                      $(".tick").show();
+                                    }
+                                  }
+                                  else  {
+                                    console.log("Ajax failed");
+                                  }
+                                });
+          }
+          else  {
+                              console.log("success");
+                              foo=new Audio("http://127.0.0.1:5000/static/"+vidId+".mp3");
+                                      // foo.play();
+                                      console.log("Audio 00 Ready");
+                                      $(".tick").show();
+          }
+
+
+
+
+
+        });
+
+
+      	// var videoId = 
+      	player = new YT.Player('player', {
+      		height: '585',
+      		width: '960',
+      		videoId: vidId,
+      		controls:0,
+      		enablejsapi:1,
+      		rel:0,
+      		disablekb:1,
+      		events: {
+      			'onReady': onPlayerReady,
+      			'onStateChange': onPlayerStateChange
+      		}
+      	});
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        player.setPlaybackQuality("medium");
+        player.mute();
+      }
+
+
+
+
+      function onPlayerStateChange(event) {
+
+        // console.log("fuck");
+                // console.log($("#player .ytp-chrome-controls"));
+
+              }
+              function stopVideo() {
+               player.pauseVideo();
+             }
+
+             function	playClick()	{
+               console.log("Clicked play");
+               if(playing==0)	{
+                playing=1;
+                player.playVideo();
+                $(".paw").css({"display":"block"});
+                $(".pl").css({"display":"none"});
+                foo.play();
+              }
+              else 	{
+                playing=0;
+                player.pauseVideo();
+                $(".paw").css({"display":"none"});
+                $(".pl").css({"display":"block"});
+                foo.pause();
+              }
+            }
+            cogs =0 ;
+            $(".cog").click(function (){
+              if (cogs==0) {
+                $(".dropdown").css({"display":"block"})
+                cogs = 1;
+              }else{
+                $(".dropdown").css({"display":"none"})
+                cogs= 0;
+              }
+            })
+            var slids = 0;
+
+            $(".slid").click(function (){
+
+              if (slids==0) {
+                $(".dropdown2").css({"display":"block"})
+                slids = 1;
+
+              }else{
+               $(".dropdown2").css({"display":"none"})
+               slids = 0;
+             }
+           })
+         </script>
+       </body>
+       </html>
